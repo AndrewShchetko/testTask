@@ -1,0 +1,14 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Main</title>
+</head>
+<body>
+<ul>
+    {% for m in menus %}
+        <li><a href="{{ m.get_absolute_url }}">{{m.name}}</a></li>
+    {% endfor %}
+</ul>
+</body>
+</html>

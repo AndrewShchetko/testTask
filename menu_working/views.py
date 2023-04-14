@@ -53,20 +53,19 @@ def draw_menu(request, menu_slug):
 
 def draw_main_menu(request):
     all_menus = Menu.objects.all()
+    if request.method == 'POST':
+        form = FindMenuForm(request.POST)
+        if form.is_valid():
+            for menu_ in all_menus:
+                if menu_.name == form.cleaned_data['name']:
+                    slug = menu_.slug
+                    return draw_menu(request, slug)
+    else:
+        form = FindMenuForm()
     menus: list = []
     for menu_ in all_menus:
         if menu_.depth == 0:
             menus.append(menu_)
-    context: dict = {'menus': menus}
+    context: dict = {'form': form, 'menus': menus}
     return render(request, 'menu_working/base.html', context=context)
 
-
-def find_menu_and_draw(request):
-    if request.method == 'POST':
-        form = FindMenuForm(request.POST)
-        if form.is_valid():
-
-    else:
-        form = FindMenuForm()
-
-    return draw_menu(request, menu_slug)

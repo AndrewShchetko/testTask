@@ -5,6 +5,13 @@
     <title>Main</title>
 </head>
 <body>
+
+<form action="{% url 'main_menu' %}" method="post">
+    {% csrf_token %}
+    {{ form.as_p }}
+    <button type="submit">Search</button>
+</form>
+
 <ul>
     {% for m in menus %}
         <li><a href="{{ m.get_absolute_url }}">{{m.name}}</a></li>
